@@ -56,18 +56,37 @@ function App() {
         </div>
       </header>
 
+
       {/* Hero Section */}
-      <section className="bg-orange-100 py-20 text-center">
-        <div className="container mx-auto px-6">
-          <h2 className="text-5xl font-extrabold text-orange-900 mb-4">Earthy Elegance for Your Home</h2>
-          <p className="text-lg text-orange-800 mb-8 max-w-2xl mx-auto">
-            Discover our curated collection of handcrafted terracotta goods. Bring the warmth of natural clay into your everyday living spaces.
-          </p>
-          <a href="#shop" className="bg-orange-800 text-white px-8 py-3 rounded-md font-semibold hover:bg-orange-900 transition-colors inline-block">
-            Shop the Collection
-          </a>
+      <section className="relative bg-stone-100 overflow-hidden">
+        <div className="container mx-auto px-6 py-16 lg:py-24 flex flex-col lg:flex-row items-center">
+          <div className="lg:w-1/2 lg:pr-12 mb-10 lg:mb-0 z-10">
+            <h2 className="text-5xl lg:text-7xl font-serif font-bold text-stone-900 leading-tight mb-6">
+              Earthy <br className="hidden lg:block"/> <span className="text-orange-800">Elegance</span>
+            </h2>
+            <p className="text-lg text-stone-600 mb-8 max-w-lg leading-relaxed">
+              Discover our curated collection of handcrafted terracotta goods. Bring the warmth of natural clay and timeless design into your everyday living spaces.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#shop" className="bg-orange-800 text-white px-8 py-4 rounded-full font-semibold tracking-wide hover:bg-orange-900 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200">
+                Explore Collection
+              </a>
+              <a href="#about" className="px-8 py-4 rounded-full font-semibold tracking-wide text-orange-900 border-2 border-orange-200 hover:border-orange-800 hover:bg-orange-50 transition-colors duration-200">
+                Our Story
+              </a>
+            </div>
+          </div>
+          <div className="lg:w-1/2 relative z-0">
+            <div className="absolute inset-0 bg-orange-200 rounded-full blur-3xl opacity-30 transform translate-x-10 translate-y-10"></div>
+            <img
+              src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=2670&auto=format&fit=crop"
+              alt="Beautiful Terracotta Vases"
+              className="relative rounded-2xl shadow-2xl object-cover h-96 lg:h-[32rem] w-full transform hover:scale-[1.02] transition-transform duration-500"
+            />
+          </div>
         </div>
       </section>
+
 
       {/* Product Gallery */}
       <main id="shop" className="container mx-auto px-6 py-16">
