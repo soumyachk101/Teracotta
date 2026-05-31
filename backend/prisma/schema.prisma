@@ -1,0 +1,391 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  ARTISAN
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAYMENT_CONFIRMED
+  PROCESSING
+  PACKED
+  DISPATCHED
+  DELIVERED
+  CANCELLED
+  RETURN_INITIATED
+  RETURN_PICKED_UP
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum PaymentGateway {
+  RAZORPAY
+  STRIPE
+  COD
+}
+
+enum ShipmentStatus {
+  NOT_SHIPPED
+  BOOKED
+  PICKED_UP
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+  FAILED
+  RETURNED
+}
+
+model User {
+  id             String    @id @default(cuid())
+  email          String?   @unique
+  phone          String?   @unique
+  passwordHash   String?
+  name           String?
+  avatar         String?
+  role           Role      @default(CUSTOMER)
+  emailVerified  Boolean   @default(false)
+  phoneVerified  Boolean   @default(false)
+  googleId       String?   @unique
+
+  addresses      Address[]
+  orders         Order[]
+  reviews        Review[]
+  wishlists      Wishlist[]
+  artisanProfile ArtisanProfile?
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model Address {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  label     String?
+  fullName  String
+  phone     String
+  line1     String
+  line2     String?
+  city      String
+  state     String
+  pincode   String
+  country   String   @default("India")
+  isDefault Boolean  @default(false)
+
+  orders    Order[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("addresses")
+}
+
+model ArtisanProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+
+  displayName     String
+  bio             String?  @db.Text
+  village         String
+  district        String   @default("Bankura")
+  state           String   @default("West Bengal")
+  photo           String?
+  yearsExperience Int?
+  speciality      String?
+  craftGeneration Int?
+  isVerified      Boolean  @default(false)
+  instagramHandle String?
+
+  products        Product[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("artisan_profiles")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  icon        String?
+  description String?
+  imageUrl    String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+
+  products    Product[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("categories")
+}
+
+model Product {
+  id               String   @id @default(cuid())
+  name             String
+  slug             String   @unique
+  description      String   @db.Text
+  shortDesc        String?
+
+  price            Int
+  originalPrice    Int?
+  currency         String  @default("INR")
+
+  categoryId       String
+  category         Category @relation(fields: [categoryId], references: [id])
+  badge            String?
+
+  artisanId        String?
+  artisan          ArtisanProfile? @relation(fields: [artisanId], references: [id])
+
+  material         String?
+  dimensions       String?
+  weight           String?
+  weightGrams      Int?
+
+  inStock          Boolean  @default(true)
+  stock            Int      @default(0)
+  sku              String?  @unique
+
+  isActive         Boolean  @default(true)
+  isFeatured       Boolean  @default(false)
+  isGITagged       Boolean  @default(false)
+
+  metaTitle        String?
+  metaDescription  String?
+
+  searchVector     Unsupported("tsvector")?
+
+  images           ProductImage[]
+  orderItems       OrderItem[]
+  reviews          Review[]
+  wishlistItems    WishlistItem[]
+
+  aiDescription    String? @db.Text
+  aiApproved       Boolean @default(false)
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([artisanId])
+  @@index([isActive, isFeatured])
+  @@map("products")
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  url       String
+  publicId  String
+  altText   String?
+  sortOrder Int     @default(0)
+  isPrimary Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@map("product_images")
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+
+  userId          String
+  user            User        @relation(fields: [userId], references: [id])
+
+  status          OrderStatus @default(PENDING)
+
+  addressId       String?
+  address         Address?    @relation(fields: [addressId], references: [id])
+  shippingSnapshot Json
+
+  subtotal        Int
+  shippingFee     Int         @default(0)
+  discount        Int         @default(0)
+  total           Int
+
+  couponCode      String?
+
+  customerNote    String?
+  adminNote       String?
+  cancellationReason String?
+
+  items           OrderItem[]
+  payment         Payment?
+  shipment        Shipment?
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@map("orders")
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId   String
+  product     Product @relation(fields: [productId], references: [id])
+
+  productName String
+  productImage String
+  artisanName String?
+  unitPrice   Int
+  qty         Int
+  total       Int
+
+  @@map("order_items")
+}
+
+model Payment {
+  id                String         @id @default(cuid())
+  orderId           String         @unique
+  order             Order          @relation(fields: [orderId], references: [id])
+
+  gateway           PaymentGateway
+  status            PaymentStatus  @default(PENDING)
+
+  gatewayOrderId    String?
+  gatewayPaymentId  String?
+  gatewaySignature  String?
+
+  amount            Int
+  currency          String         @default("INR")
+
+  refundId          String?
+  refundAmount      Int?
+  refundReason      String?
+  refundedAt        DateTime?
+
+  metadata          Json?
+
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  @@map("payments")
+}
+
+model Shipment {
+  id                 String         @id @default(cuid())
+  orderId            String         @unique
+  order              Order          @relation(fields: [orderId], references: [id])
+
+  status             ShipmentStatus @default(NOT_SHIPPED)
+  courier            String?
+  trackingId         String?
+  trackingUrl        String?
+
+  shiprocketOrderId  String?
+
+  estimatedDelivery DateTime?
+  deliveredAt        DateTime?
+  pickedUpAt         DateTime?
+
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  @@map("shipments")
+}
+
+model Review {
+  id                 String  @id @default(cuid())
+  productId          String
+  product            Product @relation(fields: [productId], references: [id])
+
+  userId             String
+  user               User    @relation(fields: [userId], references: [id])
+
+  rating             Int
+  title              String?
+  body               String? @db.Text
+  images             String[]
+
+  isVerifiedPurchase Boolean @default(false)
+  isApproved         Boolean @default(false)
+  helpfulCount       Int     @default(0)
+
+  aiSummaryUsed      Boolean @default(false)
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@unique([userId, productId])
+  @@index([productId])
+  @@map("reviews")
+}
+
+model Wishlist {
+  id        String         @id @default(cuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String         @default("Saved Items")
+  items     WishlistItem[]
+
+  createdAt DateTime       @default(now())
+
+  @@map("wishlists")
+}
+
+model WishlistItem {
+  id         String   @id @default(cuid())
+  wishlistId String
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+
+  addedAt    DateTime @default(now())
+
+  @@unique([wishlistId, productId])
+  @@map("wishlist_items")
+}
+
+model Coupon {
+  id              String   @id @default(cuid())
+  code            String   @unique @db.VarChar(32)
+  description     String?
+
+  discountType    String
+  discountValue   Int
+  minOrderValue   Int?
+  maxDiscount     Int?
+
+  usageLimit      Int?
+  usageCount      Int      @default(0)
+  perUserLimit    Int      @default(1)
+
+  validFrom       DateTime?
+  validUntil      DateTime?
+  isActive        Boolean  @default(true)
+
+  createdAt       DateTime @default(now())
+
+  @@map("coupons")
+}

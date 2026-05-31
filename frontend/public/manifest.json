@@ -1,0 +1,18 @@
+{
+  "name": "Mitti Kala - Authentic Bishnupur Terracotta",
+  "short_name": "Mitti Kala",
+  "description": "Premium terracotta crafts from Bishnupur, West Bengal. Direct from master artisans.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#c4622d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
