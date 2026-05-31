@@ -150,6 +150,6 @@ Contributions are welcome! Feel free to open issues or submit PRs.
 <div align="center">
 
 *Built with ❤️ for the artisans of Bishnupur.*
-*Every purchase supports a 400-year tradition.*
+*Every purchase supports a 400-Year tradition.*
 
 </div>
