@@ -1,115 +1,155 @@
 # 🏺 Mitti Kala — Bishnupur Terracotta E-Commerce
+
+<div align="center">
+
 ### *Maati ki mahak, haath ki kala*
 
-A premium direct-to-consumer e-commerce platform for authentic, GI-tagged terracotta crafts from the master artisans of Bishnupur and Panchmura, West Bengal.
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-teracotta.vercel.app-E2714D?style=for-the-badge)](https://teracotta.vercel.app)
+[![License](https://img.shields.io/badge/License-MIT-gold?style=for-the-badge)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge)](https://github.com/soumyachk101/Teracotta/pulls)
+
+A premium direct-to-consumer e-commerce platform for authentic, GI-tagged terracotta crafts from the master artisans of **Bishnupur** and **Panchmura**, West Bengal.
+
+</div>
 
 ---
 
-## 📂 Project Documentation Index
+## ✨ Features
 
-| File | Description |
-|------|-------------|
-| [`docs/PRD.md`](docs/PRD.md) | Product Requirements Document — goals, features, timelines |
-| [`docs/TRF.md`](docs/TRF.md) | Technical Requirements & Functional Specifications |
-| [`docs/DATABASE.md`](docs/DATABASE.md) | PostgreSQL schema (Prisma), indexes, migrations |
-| [`docs/BACKEND.md`](docs/BACKEND.md) | Node.js/Express architecture, services, API patterns |
-| [`docs/CODE_ARCHITECTURE.md`](docs/CODE_ARCHITECTURE.md) | Frontend folder structure, routing, data fetching |
-| [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) | Colors, typography, components, motion language |
-| [`docs/AI_INSTRUCTIONS.md`](docs/AI_INSTRUCTIONS.md) | AI feature prompts, Claude API integration guide |
-| [`docs/API_DOCS.md`](docs/API_DOCS.md) | REST API reference — all endpoints, request/response |
-| [`docs/TESTING.md`](docs/TESTING.md) | Testing strategy, unit/integration/E2E examples |
-| [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Vercel + Railway deployment guide, CI/CD pipeline |
+- 🛒 **Full E-Commerce Flow** — Browse, cart, checkout with Razorpay & Stripe
+- 🔐 **Auth System** — JWT + Refresh Tokens + Google OAuth + OTP
+- 🤖 **AI-Powered** — Claude API integration for recommendations & support
+- 🖼️ **Cloudinary CDN** — Optimized image delivery
+- 📦 **Order Tracking** — Real-time delivery partner updates
+- 🌐 **Multi-language** — Support for regional languages
+- 📊 **Admin Dashboard** — Full inventory & order management
+- 🚀 **CI/CD** — GitHub Actions with Vercel + Railway deployment
 
 ---
 
-## 🛠️ Tech Stack Summary
+## 🛠️ Tech Stack
 
-```
-Frontend  : React 18 + Vite + Tailwind CSS + TanStack Query + Zustand
-Backend   : Node.js + Express + Prisma ORM
-Database  : PostgreSQL 16
-Cache     : Redis (Upstash)
-Auth      : JWT + Refresh Tokens + Google OAuth + OTP
-Payments  : Razorpay (INR) + Stripe (International)
-Images    : Cloudinary CDN
-Email     : Resend
-AI        : Anthropic Claude API
-Hosting   : Vercel (frontend) + Railway (backend)
-CI/CD     : GitHub Actions
-Monitoring: Sentry + Posthog
-```
-
----
-
-## 🎨 Design Aesthetic
-
-**Theme:** Artisan Luxury  
-**Palette:** Terracotta · Cream · Deep Sienna · Gold accent  
-**Fonts:** Cormorant Garamond (display) + DM Sans (body)  
-**Principle:** Premium but rooted — never generic, never cold
+| Layer | Technology |
+|---|---|
+| **Frontend** | React 18 + Vite + Tailwind CSS + TanStack Query + Zustand |
+| **Backend** | Node.js + Express + Prisma ORM |
+| **Database** | PostgreSQL 16 |
+| **Cache** | Redis (Upstash) |
+| **Auth** | JWT + Google OAuth + OTP |
+| **Payments** | Razorpay (INR) + Stripe (International) |
+| **Images** | Cloudinary CDN |
+| **Email** | Resend |
+| **AI** | Anthropic Claude API |
+| **Hosting** | Vercel (frontend) + Railway (backend) |
+| **Monitoring** | Sentry + PostHog |
 
 ---
 
 ## 🚀 Quick Start
 
 ```bash
-# Clone
-git clone https://github.com/your-org/bishnupur-terracotta.git
+# 1. Clone the repo
+git clone https://github.com/soumyachk101/Teracotta.git
+cd Teracotta
 
-# Backend setup
-cd backend && npm install
+# 2. Backend setup
+cd backend
+npm install
 cp .env.example .env.development
 npx prisma migrate dev
 npx prisma db seed
-npm run dev  # → localhost:5000
+npm run dev   # → http://localhost:5000
 
-# Frontend setup
-cd frontend && npm install
+# 3. Frontend setup (new terminal)
+cd frontend
+npm install
 cp .env.example .env.development
-npm run dev  # → localhost:5173
+npm run dev   # → http://localhost:5173
 ```
 
 ---
 
-## 🗂️ Frontend Component Files
+## 📂 Project Structure
 
-| File | Location |
-|------|----------|
-| Design Tokens | `tailwind.config.md` |
-| useInView hook | `src/hooks/useInView.md` |
-| useNavScroll hook | `src/hooks/useNavScroll.md` |
-| useCart hook | `src/hooks/useCart.md` |
-| useCountUp hook | `src/hooks/useCountUp.md` |
-| CartContext | `src/context/CartContext.md` |
-| AnimateIn component | `src/components/AnimateIn.md` |
-| Navbar component | `src/components/Navbar.md` |
-| Hero component | `src/components/Hero.md` |
-| Products data | `src/data/products.md` |
+```
+Teracotta/
+├── frontend/          # React + Vite app
+│   ├── src/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── context/
+│   │   └── data/
+├── backend/           # Node.js + Express API
+│   ├── routes/
+│   ├── controllers/
+│   ├── prisma/
+│   └── services/
+├── .github/workflows/ # CI/CD pipelines
+└── docker-compose.yml
+```
 
 ---
 
-## 📦 Deployment Status
+## 📚 Documentation
+
+| File | Description |
+|---|---|
+| [`PRD.md`](PRD.md) | Product Requirements — goals, features, timelines |
+| [`TRF.md`](TRF.md) | Technical Requirements & Functional Specs |
+| [`DATABASE.md`](DATABASE.md) | PostgreSQL schema (Prisma), indexes, migrations |
+| [`BACKEND.md`](BACKEND.md) | Node.js/Express architecture, services, API patterns |
+| [`CODE_ARCHITECTURE.md`](CODE_ARCHITECTURE.md) | Frontend folder structure, routing, data fetching |
+| [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) | Colors, typography, components, motion language |
+| [`AI_INSTRUCTIONS.md`](AI_INSTRUCTIONS.md) | AI feature prompts, Claude API integration guide |
+| [`API_DOCS.md`](API_DOCS.md) | REST API reference — all endpoints, request/response |
+| [`TESTING.md`](TESTING.md) | Testing strategy — unit/integration/E2E |
+| [`DEPLOYMENT.md`](DEPLOYMENT.md) | Vercel + Railway deployment guide, CI/CD pipeline |
+
+---
+
+## 🌐 Deployment
 
 | Environment | Frontend | Backend |
-|-------------|----------|---------|
-| Development | localhost:5173 | localhost:5000 |
-| Staging | staging.mittikala.com | staging-api.mittikala.com |
-| Production | mittikala.com | api.mittikala.com |
+|---|---|---|
+| **Development** | localhost:5173 | localhost:5000 |
+| **Staging** | staging.mittikala.com | staging-api.mittikala.com |
+| **Production** | mittikala.com | api.mittikala.com |
 
 ---
 
-*Built with love for the artisans of Bishnupur. Every purchase supports a 400-year tradition.*
+## 🎨 Design Aesthetic
+
+> **Theme:** Artisan Luxury
+> **Palette:** Terracotta · Cream · Deep Sienna · Gold accent
+> **Fonts:** Cormorant Garamond (display) + DM Sans (body)
+> **Principle:** Premium but rooted — never generic, never cold
 
 ---
 
 ## 🤝 Contributing & Collaboration
 
-I am always open to meaningful collaborations. If you have ideas for improvements, bug fixes, or new features, feel free to:
-1. **Fork** the repository.
-2. **Create** a new feature branch.
-3. **Submit** a pull request.
+Contributions and meaningful collaborations are welcome! Feel free to open issues or submit PRs.
 
-Let's build something great together!
+1. Fork the repo
+2. Create a branch: `git checkout -b feature/your-feature`
+3. Commit changes: `git commit -m "feat: add your feature"`
+4. Push: `git push origin feature/your-feature`
+5. Open a Pull Request 🎉
 
 ---
 
+## 👨‍💻 Author
+
+**Soumya Chakraborty**
+- GitHub: [@soumyachk101](https://github.com/soumyachk101)
+- Email: soumya.chk101@gmail.com
+- Website: [chksoumya.in](https://chksoumya.in)
+
+---
+
+<div align="center">
+
+*Built with ❤️ for the artisans of Bishnupur.*
+*Every purchase supports a 400-Year tradition.*
+
+</div>
