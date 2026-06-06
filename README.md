@@ -126,9 +126,9 @@ Teracotta/
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contributing & Collaboration
 
-Contributions are welcome! Feel free to open issues or submit PRs.
+Contributions and meaningful collaborations are welcome! Feel free to open issues or submit PRs.
 
 1. Fork the repo
 2. Create a branch: `git checkout -b feature/your-feature`
