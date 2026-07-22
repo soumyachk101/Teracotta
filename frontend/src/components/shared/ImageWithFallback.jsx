@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { cn } from '../../utils/cn';
 
-export default function ImageWithFallback({ src, alt, className, fallbackClassName }) {
+export default function ImageWithFallback({ src, alt, className }) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 

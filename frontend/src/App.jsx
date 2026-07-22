@@ -25,6 +25,9 @@ const Register = lazy(() => import('./pages/auth/Register'));
 const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('./pages/auth/ResetPassword'));
 const Addresses = lazy(() => import('./pages/Addresses'));
+const FAQ = lazy(() => import('./pages/Support').then((m) => ({ default: m.FAQ })));
+const ShippingInfo = lazy(() => import('./pages/Support').then((m) => ({ default: m.ShippingInfo })));
+const Returns = lazy(() => import('./pages/Support').then((m) => ({ default: m.Returns })));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const queryClient = new QueryClient({
@@ -74,6 +77,9 @@ function App() {
                   <Route path={ROUTES.ORDERS} element={<Orders />} />
                   <Route path={ROUTES.ORDER(':id')} element={<OrderDetail />} />
                   <Route path="/addresses" element={<Addresses />} />
+                  <Route path={ROUTES.FAQ} element={<FAQ />} />
+                  <Route path={ROUTES.SHIPPING} element={<ShippingInfo />} />
+                  <Route path={ROUTES.RETURNS} element={<Returns />} />
                 </Route>
 
                 {/* Auth routes (no layout wrapper) */}

@@ -13,7 +13,7 @@ export default function About() {
         </div>
 
         {/* Story Section */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+        <div id="artisans" className="grid lg:grid-cols-2 gap-12 items-center mb-20 scroll-mt-24">
           <div>
             <h2 className="text-3xl mb-4">Maati ki mahak, haath ki kala</h2>
             <p className="text-stone-700 mb-4 leading-relaxed">
@@ -45,7 +45,7 @@ export default function About() {
         </div>
 
         {/* Values */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
+        <div id="gi-tag" className="grid md:grid-cols-3 gap-8 mb-20 scroll-mt-24">
           <div className="card-section text-center">
             <h3 className="font-display text-xl font-semibold mb-3">Authentic GI-Tagged</h3>
             <p className="text-stone-600 text-sm">
@@ -65,6 +65,31 @@ export default function About() {
             <p className="text-stone-600 text-sm">
               Each piece is made by hand using traditional techniques. No mass production,
               no machines — just pure artisan craft.
+            </p>
+          </div>
+        </div>
+
+        {/* Sustainability */}
+        <div id="sustainability" className="grid lg:grid-cols-2 gap-12 items-center mb-20 scroll-mt-24">
+          <div className="aspect-square bg-gradient-to-br from-cream-200 to-terracotta-100 rounded-3xl flex items-center justify-center order-last lg:order-first">
+            <div className="text-center text-stone-400">
+              <svg className="w-24 h-24 mx-auto mb-4" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 15 C30 35, 20 55, 30 75 C40 90, 60 90, 70 75 C80 55, 70 35, 50 15 Z M50 40 L50 80" stroke="currentColor" strokeWidth="3" fill="none" />
+              </svg>
+              <p>Earth to Earth</p>
+            </div>
+          </div>
+          <div>
+            <h2 className="text-3xl mb-4">Sustainability</h2>
+            <p className="text-stone-700 mb-4 leading-relaxed">
+              Terracotta is one of the most sustainable crafts on earth. Each piece begins
+              as local river clay, shaped by hand and fired in traditional wood kilns —
+              no plastics, no chemicals, no factory emissions.
+            </p>
+            <p className="text-stone-700 leading-relaxed">
+              Our packaging uses recycled and biodegradable materials, and every piece is
+              fully compostable at the end of its long life. When you buy terracotta, you
+              buy something that returns to the earth it came from.
             </p>
           </div>
         </div>
