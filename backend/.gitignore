@@ -8,8 +8,11 @@
 .cline
 .github/copilot*
 .kilocode
+.kiro
 .qoder
 .qwen
 .roo
 .trae
 .windsurf
+skills-lock.json
+.DS_Store

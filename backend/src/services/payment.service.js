@@ -1,12 +1,31 @@
+import crypto from 'crypto';
 import Razorpay from 'razorpay';
 import Stripe from 'stripe';
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+let _razorpay;
+function getRazorpay() {
+  if (!_razorpay) {
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+      throw Object.assign(new Error('Razorpay is not configured'), { statusCode: 503 });
+    }
+    _razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+  }
+  return _razorpay;
+}
 
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+let _stripe;
+function getStripe() {
+  if (!_stripe) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw Object.assign(new Error('Stripe is not configured'), { statusCode: 503 });
+    }
+    _stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+  }
+  return _stripe;
+}
 
 export const paymentService = {
   // Razorpay
@@ -17,11 +36,10 @@ export const paymentService = {
       receipt: receipt || `rcpt_${Date.now()}`,
       payment_capture: 1, // auto capture
     };
-    return await razorpay.orders.create(options);
+    return await getRazorpay().orders.create(options);
   },
 
   verifyRazorpaySignature(paymentId, orderId, signature) {
-    const crypto = require('crypto');
     const body = orderId + '|' + paymentId;
     const expectedSignature = crypto
       .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
@@ -34,7 +52,7 @@ export const paymentService = {
   // Stripe - using Checkout Sessions (accepts INR)
   async createStripeCheckoutSession(order, successUrl, cancelUrl) {
     // amount in smallest currency unit: for INR it's paise; order.total is already in paise
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
         {
@@ -63,6 +81,6 @@ export const paymentService = {
   },
 
   async retrieveStripeCheckoutSession(sessionId) {
-    return await stripe.checkout.sessions.retrieve(sessionId);
+    return await getStripe().checkout.sessions.retrieve(sessionId);
   },
 };

@@ -4,13 +4,14 @@ import prisma from '../config/db.js';
 import { paymentService } from '../services/payment.service.js';
 
 export const createOrder = asyncHandler(async (req, res) => {
-  const { items, addressId, shippingFee, discount, total, couponCode, paymentMethod } = req.body;
+  const { items, addressId, shippingAddress, shippingFee, discount, total, couponCode, paymentMethod } = req.body;
   const userId = req.user.id;
 
   const order = await orderService.create({
     userId,
     items,
     addressId,
+    shippingAddress,
     shippingFee,
     discount,
     total,

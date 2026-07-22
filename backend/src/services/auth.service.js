@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '../config/db.js';
+import { emailService } from './email.service.js';
 
 const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || 'dev_access_secret';
 const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'dev_refresh_secret';
@@ -28,6 +29,10 @@ export const verifyRefreshToken = (refreshToken) => {
 };
 
 export const authService = {
+  signAccessToken,
+  signRefreshToken,
+  verifyRefreshToken,
+
   async getUserById(userId) {
     const user = await prisma.user.findUnique({
       where: { id: userId },
@@ -95,5 +100,39 @@ export const authService = {
       accessToken,
       refreshToken,
     };
+  },
+
+  async forgotPassword(email) {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) return; // don't reveal whether the account exists
+
+    const resetToken = jwt.sign({ sub: user.id, purpose: 'password-reset' }, ACCESS_SECRET, {
+      expiresIn: '1h',
+    });
+    const baseUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const resetLink = `${baseUrl}/reset-password?token=${resetToken}`;
+
+    try {
+      await emailService.sendPasswordReset({ to: user.email, resetLink });
+    } catch (err) {
+      console.error('Password reset email failed:', err.message);
+    }
+  },
+
+  async resetPassword(token, password) {
+    let decoded;
+    try {
+      decoded = jwt.verify(token, ACCESS_SECRET);
+    } catch {
+      decoded = null;
+    }
+    if (!decoded || decoded.purpose !== 'password-reset') {
+      const error = new Error('Invalid or expired reset link');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const passwordHash = await hashPassword(password);
+    await prisma.user.update({ where: { id: decoded.sub }, data: { passwordHash } });
   },
 };

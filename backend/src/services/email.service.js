@@ -1,11 +1,21 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM_EMAIL = process.env.RESEND_FROM || 'orders@mittikala.com';
+
+let _resend;
+function resendClient() {
+  if (!_resend) {
+    if (!process.env.RESEND_API_KEY) {
+      throw Object.assign(new Error('Email is not configured'), { statusCode: 503 });
+    }
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
 
 export const emailService = {
   async sendOrderConfirmation({ to, orderNumber, items, total, shippingAddress }) {
-    return resend.emails.send({
+    return resendClient().emails.send({
       from: FROM_EMAIL,
       to,
       subject: `Order Confirmed — ${orderNumber}`,
@@ -23,7 +33,7 @@ export const emailService = {
   },
 
   async sendShippingNotification({ to, orderNumber, trackingId, trackingUrl, courier }) {
-    return resend.emails.send({
+    return resendClient().emails.send({
       from: FROM_EMAIL,
       to,
       subject: `Order Shipped — ${orderNumber}`,
@@ -37,7 +47,7 @@ export const emailService = {
   },
 
   async sendPasswordReset({ to, resetLink }) {
-    return resend.emails.send({
+    return resendClient().emails.send({
       from: FROM_EMAIL,
       to,
       subject: 'Reset Your Password — Mitti Kala',

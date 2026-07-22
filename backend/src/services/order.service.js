@@ -2,7 +2,7 @@ import prisma from '../config/db.js';
 import { paymentService } from './payment.service.js';
 
 export const orderService = {
-  async create({ userId, items, addressId, shippingFee = 0, discount = 0, total, couponCode, paymentMethod = 'COD' }) {
+  async create({ userId, items, addressId, shippingAddress, shippingFee = 0, discount = 0, total, couponCode, paymentMethod = 'COD' }) {
     // Get address for snapshot
     const address = addressId ? await prisma.address.findUnique({ where: { id: addressId } }) : null;
 
@@ -43,7 +43,7 @@ export const orderService = {
             state: address.state,
             pincode: address.pincode,
             country: address.country,
-          } : {},
+          } : (shippingAddress || {}),
           items: {
             create: items.map((item) => ({
               productId: item.productId,

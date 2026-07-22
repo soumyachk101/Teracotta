@@ -56,17 +56,16 @@ export default function Checkout() {
   const handlePayment = async () => {
     setIsProcessing(true);
     try {
-      // Create order
-      const response = await orderService.create({
+      // Create order — orderService.create already unwraps to the order object
+      const order = await orderService.create({
         items,
         addressId: null, // Not saving address yet
+        shippingAddress: { ...address, country: 'India' },
         shippingFee,
         discount: 0,
         total,
         paymentMethod,
       });
-
-      const order = response.data;
 
       if (paymentMethod === 'COD') {
         clearCart();

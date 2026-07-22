@@ -73,6 +73,7 @@ npm run dev   # → http://localhost:5173
 
 ```
 Teracotta/
+├── docs/              # Documentation (PRD, Architecture, API, etc.)
 ├── frontend/          # React + Vite app
 │   ├── src/
 │   │   ├── components/
@@ -94,16 +95,17 @@ Teracotta/
 
 | File | Description |
 |---|---|
-| [`PRD.md`](PRD.md) | Product Requirements — goals, features, timelines |
-| [`TRF.md`](TRF.md) | Technical Requirements & Functional Specs |
-| [`DATABASE.md`](DATABASE.md) | PostgreSQL schema (Prisma), indexes, migrations |
-| [`BACKEND.md`](BACKEND.md) | Node.js/Express architecture, services, API patterns |
-| [`CODE_ARCHITECTURE.md`](CODE_ARCHITECTURE.md) | Frontend folder structure, routing, data fetching |
-| [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) | Colors, typography, components, motion language |
-| [`AI_INSTRUCTIONS.md`](AI_INSTRUCTIONS.md) | AI feature prompts, Claude API integration guide |
-| [`API_DOCS.md`](API_DOCS.md) | REST API reference — all endpoints, request/response |
-| [`TESTING.md`](TESTING.md) | Testing strategy — unit/integration/E2E |
-| [`DEPLOYMENT.md`](DEPLOYMENT.md) | Vercel + Railway deployment guide, CI/CD pipeline |
+| [`PRD.md`](docs/PRD.md) | Product Requirements — goals, features, timelines |
+| [`TRF.md`](docs/TRF.md) | Technical Requirements & Functional Specs |
+| [`DATABASE.md`](docs/DATABASE.md) | PostgreSQL schema (Prisma), indexes, migrations |
+| [`BACKEND.md`](docs/BACKEND.md) | Node.js/Express architecture, services, API patterns |
+| [`CODE_ARCHITECTURE.md`](docs/CODE_ARCHITECTURE.md) | Frontend folder structure, routing, data fetching |
+| [`DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) | Colors, typography, components, motion language |
+| [`AI_INSTRUCTIONS.md`](docs/AI_INSTRUCTIONS.md) | AI feature prompts, Claude API integration guide |
+| [`API_DOCS.md`](docs/API_DOCS.md) | REST API reference — all endpoints, request/response |
+| [`TESTING.md`](docs/TESTING.md) | Testing strategy — unit/integration/E2E |
+| [`DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Vercel + Railway deployment guide, CI/CD pipeline |
+
 
 ---
 

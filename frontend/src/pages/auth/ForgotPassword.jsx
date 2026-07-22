@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
+import { authService } from '../../services/product.service';
 import { cn } from '../../utils/cn';
 
 export default function ForgotPassword() {
@@ -16,13 +16,10 @@ export default function ForgotPassword() {
     setLoading(true);
 
     try {
-      // TODO: Implement forgot password API endpoint
-      // await authService.sendPasswordResetEmail(email);
-      // For now, simulate success
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await authService.forgotPassword(email);
       setSubmitted(true);
     } catch (err) {
-      setError(err.message || 'Failed to send reset email');
+      setError(err.response?.data?.message || 'Failed to send reset email');
     } finally {
       setLoading(false);
     }

@@ -81,3 +81,35 @@ export const refreshToken = asyncHandler(async (req, res) => {
     throw authError;
   }
 });
+
+export const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    const error = new Error('Email is required');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  await authService.forgotPassword(email);
+
+  res.status(200).json({
+    success: true,
+    message: 'If an account exists for that email, a reset link has been sent',
+  });
+});
+
+export const resetPassword = asyncHandler(async (req, res) => {
+  const { token, password } = req.body;
+  if (!token || !password || password.length < 8) {
+    const error = new Error('A valid token and a password of at least 8 characters are required');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  await authService.resetPassword(token, password);
+
+  res.status(200).json({
+    success: true,
+    message: 'Password has been reset successfully',
+  });
+});

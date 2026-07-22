@@ -15,13 +15,15 @@ export function setAccessToken(token) {
 
 export function clearAccessToken() {
   accessToken = null;
+  localStorage.removeItem('accessToken');
 }
 
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    const token = accessToken || localStorage.getItem('accessToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
@@ -43,8 +45,10 @@ api.interceptors.response.use(
           {},
           { withCredentials: true }
         );
-        setAccessToken(data.accessToken);
-        original.headers.Authorization = `Bearer ${data.accessToken}`;
+        const newToken = data.data.accessToken;
+        setAccessToken(newToken);
+        localStorage.setItem('accessToken', newToken);
+        original.headers.Authorization = `Bearer ${newToken}`;
         return api(original);
       } catch {
         clearAccessToken();
