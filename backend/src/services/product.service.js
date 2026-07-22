@@ -1,12 +1,19 @@
 import prisma from '../config/db.js';
 
 export const productService = {
-  async list({ category, sortBy = 'newest', page = 1, limit = 24, isFeatured, inStock, q } = {}) {
+  async list({ category, sortBy = 'newest', page = 1, limit = 24, isFeatured, inStock, q, minPrice, maxPrice } = {}) {
     const where = {
       isActive: true,
       ...(category && { category: { slug: category } }),
       ...(isFeatured && { isFeatured: true }),
       ...(inStock && { inStock: true }),
+      // minPrice/maxPrice are in rupees; DB stores paise
+      ...((minPrice || maxPrice) && {
+        price: {
+          ...(minPrice && { gte: Math.round(minPrice * 100) }),
+          ...(maxPrice && { lte: Math.round(maxPrice * 100) }),
+        },
+      }),
       ...(q && {
         OR: [
           { name: { contains: q, mode: 'insensitive' } },
@@ -92,6 +99,6 @@ export const productService = {
       orderBy: { sortOrder: 'asc' },
       include: { _count: { select: { products: true } } },
     });
-    return categories.map(({ _count, ...c }) => ({ ...c, productCount: _count.products }));
+    return categories.map(({ _count, ...c }) => ({ ...c, productCount: _count?.products ?? 0 }));
   },
 };

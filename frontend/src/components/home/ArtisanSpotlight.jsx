@@ -53,13 +53,12 @@ export default function ArtisanSpotlight() {
           {artisans.map((artisan, index) => (
             <AnimateIn key={artisan.id} variant="fade-up" delay={index * 150}>
               <div className="card-section text-center group cursor-pointer">
-                <div className="aspect-square rounded-2xl overflow-hidden bg-cream-100 mb-4 mx-auto max-w-[200px]">
-                  {/* Placeholder for artisan photo */}
-                  <div className="w-full h-full bg-gradient-to-br from-terracotta-200 to-cream-300 flex items-center justify-center">
-                    <span className="text-4xl text-terracotta-400">
-                      {artisan.name.split(' ').map(n => n[0]).join('')}
-                    </span>
-                  </div>
+                <div className="aspect-square rounded-2xl overflow-hidden bg-cream-100 mb-4 mx-auto max-w-[200px] shadow-warm">
+                  <img
+                    src="/images/artisan_crafting.png"
+                    alt={artisan.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                  />
                 </div>
                 <h3 className="font-display text-xl font-semibold mb-1">
                   {artisan.name}

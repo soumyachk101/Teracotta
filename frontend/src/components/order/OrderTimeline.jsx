@@ -10,8 +10,6 @@ const statusSteps = [
   { key: 'DELIVERED', label: 'Delivered', icon: CheckCircle },
 ];
 
-const terminalStatuses = ['CANCELLED', 'RETURN_INITIATED', 'RETURN_PICKED_UP', 'REFUNDED'];
-
 export default function OrderTimeline({ status, shippedAt, deliveredAt }) {
   // For terminal statuses other than delivered, show special handling
   if (status === 'CANCELLED') {

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowLeft, Package, Truck, MapPin, CreditCard } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ export default function OrderDetail() {
   const { id } = useParams();
   const { isAuthenticated, loading } = useAuth();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isError } = useQuery({
     queryKey: [QUERY_KEYS.ORDER, id],
     queryFn: () => orderService.getById(id),
     enabled: isAuthenticated && !!id,

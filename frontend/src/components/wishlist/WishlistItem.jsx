@@ -3,7 +3,6 @@ import { Trash2, Heart } from 'lucide-react';
 import { useCartStore } from '../../store/cartStore';
 import { useAuth } from '../../context/AuthContext';
 import { formatPrice } from '../../utils/formatPrice';
-import { cn } from '../../utils/cn';
 
 export default function WishlistItem({ item, onRemove }) {
   const { isAuthenticated } = useAuth();

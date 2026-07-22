@@ -172,6 +172,9 @@ model Product {
   isFeatured       Boolean  @default(false)
   isGITagged       Boolean  @default(false)
 
+  rating           Float    @default(0)
+  reviewCount      Int      @default(0)
+
   metaTitle        String?
   metaDescription  String?
 
@@ -343,7 +346,7 @@ model Review {
 
 model Wishlist {
   id        String         @id @default(cuid())
-  userId    String
+  userId    String         @unique
   user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   name      String         @default("Saved Items")
   items     WishlistItem[]

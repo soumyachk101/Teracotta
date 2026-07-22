@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../store/cartStore';
 import { formatPrice } from '../utils/formatPrice';
@@ -23,7 +23,6 @@ export default function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState('COD');
   const [isProcessing, setIsProcessing] = useState(false);
   const [razorpayLoaded, setRazorpayLoaded] = useState(false);
-  const razorpayRef = useRef(null);
 
   const subtotal = getSubtotal();
   const shippingFee = getShippingFee();

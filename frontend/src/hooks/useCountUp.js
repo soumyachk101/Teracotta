@@ -6,8 +6,8 @@ export function useCountUp(target, shouldStart = true, duration = 2000) {
 
   useEffect(() => {
     if (!shouldStart) {
-      setCount(0);
-      return;
+      frameRef.current = requestAnimationFrame(() => setCount(0));
+      return () => cancelAnimationFrame(frameRef.current);
     }
 
     const startTime = performance.now();

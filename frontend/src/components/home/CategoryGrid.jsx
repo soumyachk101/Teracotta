@@ -38,9 +38,12 @@ export default function CategoryGrid() {
                 to={`/shop?category=${category.slug}`}
                 className="group relative aspect-[4/3] rounded-3xl overflow-hidden shadow-warm hover:shadow-warm-lg transition-shadow duration-300"
               >
-                {/* Placeholder background - replace with actual image */}
                 <div className="absolute inset-0 bg-gradient-to-br from-terracotta-100 to-cream-200">
-                  {/* Image would go here */}
+                  <img
+                    src={category.image || '/images/bankura_horse.png'}
+                    alt={category.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
                 </div>
 
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-stone-900/20 to-transparent" />

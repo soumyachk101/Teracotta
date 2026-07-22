@@ -60,22 +60,22 @@ export default function Hero() {
 
           <div className="relative animate-fade-up lg:animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="relative">
-              {/* Hero Image Placeholder - Replace with actual image */}
-              <div className="aspect-square rounded-full bg-gradient-to-br from-terracotta-200 to-cream-300 shadow-warm-lg flex items-center justify-center">
-                <svg
-                  className="w-1/2 h-1/2 text-terracotta-400"
-                  viewBox="0 0 100 100"
-                  fill="currentColor"
-                >
-                  <path d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 72 L25 90 L35 60 L10 40 L40 40 Z" />
-                </svg>
+              {/* Hero Image */}
+              <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-warm-lg border-4 border-white/60 bg-cream-200">
+                <img
+                  src="/images/hero_banner.png"
+                  alt="Authentic Bishnupur Terracotta Pottery Workshop"
+                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out"
+                />
               </div>
               {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-warm p-4 animate-float">
-                <p className="font-display text-2xl font-bold text-terracotta-500">GI Tagged</p>
+              <div className="absolute -top-4 -right-4 bg-white/90 backdrop-blur-md rounded-2xl shadow-warm p-4 border border-terracotta-100 animate-float">
+                <p className="font-display text-xl font-bold text-terracotta-500">🌾 GI Tagged Craft</p>
+                <p className="text-xs text-stone-600 font-medium">Bishnupur & Panchmura</p>
               </div>
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-warm p-4 animate-float" style={{ animationDelay: '1s' }}>
-                <p className="font-display text-lg font-semibold text-stone-900">Handcrafted</p>
+              <div className="absolute -bottom-4 -left-4 bg-white/90 backdrop-blur-md rounded-2xl shadow-warm p-4 border border-terracotta-100 animate-float" style={{ animationDelay: '1s' }}>
+                <p className="font-display text-lg font-semibold text-stone-900">✨ 100% Hand-Fired</p>
+                <p className="text-xs text-stone-600 font-medium">Direct from Master Artisans</p>
               </div>
             </div>
           </div>

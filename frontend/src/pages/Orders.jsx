@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Package } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -6,7 +5,6 @@ import { QUERY_KEYS } from '../constants/queryKeys';
 import { orderService } from '../services/product.service';
 import { useAuth } from '../context/AuthContext';
 import OrderCard from '../components/order/OrderCard';
-import { cn } from '../utils/cn';
 
 export default function Orders() {
   const { isAuthenticated, loading } = useAuth();

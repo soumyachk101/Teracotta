@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -6,7 +5,6 @@ import { QUERY_KEYS } from '../constants/queryKeys';
 import { wishlistService } from '../services/product.service';
 import { useAuth } from '../context/AuthContext';
 import WishlistItem from '../components/wishlist/WishlistItem';
-import { cn } from '../utils/cn';
 
 export default function Wishlist() {
   const { isAuthenticated, loading: authLoading } = useAuth();

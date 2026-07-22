@@ -8,7 +8,7 @@ export const productService = {
 
   getFeatured: () => api.get('/products/featured').then(r => r.data.data),
 
-  getCategories: () => api.get('/categories').then(r => r.data.data),
+  getCategories: () => api.get('/products/categories').then(r => r.data.data),
 };
 
 export const reviewService = {

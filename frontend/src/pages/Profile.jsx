@@ -1,15 +1,13 @@
-import { useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { User, Mail, Phone, MapPin, LogOut, Edit3 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { authService } from '../services/product.service';
-import { cn } from '../utils/cn';
 
 export default function Profile() {
   const { user, logout, isAuthenticated, loading: authLoading } = useAuth();
 
-  const { data: profileData, isLoading } = useQuery({
+  const { data: profileData } = useQuery({
     queryKey: ['userProfile'],
     queryFn: () => authService.me(),
     enabled: isAuthenticated,
