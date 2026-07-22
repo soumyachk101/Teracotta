@@ -1,56 +1,8 @@
-/**
- * Self-hosted fonts configuration
- *
- * IMPORTANT: Before building for production, download the font files from:
- * - Cormorant Garamond: https://fonts.google.com/specimen/Cormorant+Garamond
- * - DM Sans: https://fonts.google.com/specimen/DM+Sans
- *
- * Download the following weights as .woff2 format:
- * - CormorantGaramond-Regular.woff2 (400)
- * - CormorantGaramond-SemiBold.woff2 (600)
- * - CormorantGaramond-Italic.woff2 (400 italic)
- * - DMSans-Regular.woff2 (400)
- * - DMSans-Medium.woff2 (500)
- *
- * Place all .woff2 files in this directory (src/assets/fonts/)
- */
-
-@font-face {
-  font-family: 'Cormorant Garamond';
-  src: url('./CormorantGaramond-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Cormorant Garamond';
-  src: url('./CormorantGaramond-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Cormorant Garamond';
-  src: url('./CormorantGaramond-Italic.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'DM Sans';
-  src: url('./DMSans-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'DM Sans';
-  src: url('./DMSans-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-  font-style: normal;
-}
+/* Self-hosted via @fontsource packages — Vite bundles the woff2 files. */
+@import '@fontsource/cormorant-garamond/400.css';
+@import '@fontsource/cormorant-garamond/400-italic.css';
+@import '@fontsource/cormorant-garamond/600.css';
+@import '@fontsource/cormorant-garamond/700.css';
+@import '@fontsource/dm-sans/400.css';
+@import '@fontsource/dm-sans/500.css';
+@import '@fontsource/dm-sans/700.css';

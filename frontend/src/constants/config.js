@@ -1,5 +1,6 @@
 export const CONFIG = {
-  API_URL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  // Port 5000 is taken by macOS AirPlay Receiver — local backend runs on 5050
+  API_URL: import.meta.env.VITE_API_URL || 'http://localhost:5050/api',
   IMAGE_BASE_URL: 'https://res.cloudinary.com/mittikala',
   CURRENCY: 'INR',
   CURRENCY_SYMBOL: '₹',

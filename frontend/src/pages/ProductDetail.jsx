@@ -12,6 +12,7 @@ import Badge from '../components/ui/Badge';
 import Rating from '../components/ui/Rating';
 import Button from '../components/ui/Button';
 import { ProductCardSkeleton } from '../components/ui/Skeleton';
+import ImageWithFallback from '../components/shared/ImageWithFallback';
 import { cn } from '../utils/cn';
 import { useUIStore } from '../store/uiStore';
 
@@ -97,13 +98,13 @@ export default function ProductDetail() {
           {/* Image Gallery */}
           <div className="space-y-4">
             <div className="aspect-square rounded-3xl overflow-hidden bg-cream-100">
-              <img
-                src={product.images[selectedImage]?.url || product.primaryImage}
+              <ImageWithFallback
+                src={product.images?.[selectedImage]?.url || product.primaryImage || '/images/bankura_horse.png'}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
             </div>
-            {product.images.length > 1 && (
+            {product.images?.length > 1 && (
               <div className="grid grid-cols-4 gap-3">
                 {product.images.map((img, idx) => (
                   <button
@@ -114,7 +115,7 @@ export default function ProductDetail() {
                       selectedImage === idx ? 'border-terracotta-500' : 'border-transparent'
                     )}
                   >
-                    <img src={img.url} alt={img.altText} className="w-full h-full object-cover" />
+                    <ImageWithFallback src={img.url} alt={img.altText || product.name} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>

@@ -4,7 +4,17 @@ import Rating from '../ui/Rating';
 import { useCartStore } from '../../store/cartStore';
 import { useAuth } from '../../context/AuthContext';
 import AnimateIn from '../shared/AnimateIn';
+import ImageWithFallback from '../shared/ImageWithFallback';
 import { formatPrice } from '../../utils/formatPrice';
+
+const PRODUCT_IMAGES = {
+  'classic-bankura-horse-large': '/images/bankura_horse.png',
+  'classic-bankura-horse-small': '/images/bankura_horse.png',
+  'terracotta-ganesha-medium': '/images/terracotta_ganesha.png',
+  'terracotta-necklace-blue-lotus': '/images/terracotta_jewelry.png',
+  'bishnupur-temple-relief-wall-tile': '/images/temple_tile.png',
+  'handcrafted-terracotta-flower-vase': '/images/terracotta_vase.png',
+};
 
 export default function ProductCard({ product, index = 0 }) {
   const addItem = useCartStore((state) => state.addItem);
@@ -20,20 +30,21 @@ export default function ProductCard({ product, index = 0 }) {
     addItem(product, 1);
   };
 
+  const imageSrc = product?.primaryImage || PRODUCT_IMAGES[product?.slug] || '/images/bankura_horse.png';
+
   return (
     <AnimateIn variant="fade-up" delay={index * 100}>
       <Link to={`/product/${product.slug}`} className="card-product group block">
         {/* Image */}
         <div className="relative aspect-square overflow-hidden bg-cream-100">
-          <img
-            src={product.primaryImage}
+          <ImageWithFallback
+            src={imageSrc}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
           />
 
           {/* Badges */}
-          <div className="absolute top-3 left-3 flex flex-col gap-2">
+          <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
             {product.badge && <Badge variant={getBadgeVariant(product.badge)}>{product.badge}</Badge>}
             {product.discountPercent > 0 && (
               <Badge variant="default">-{product.discountPercent}%</Badge>
@@ -41,7 +52,7 @@ export default function ProductCard({ product, index = 0 }) {
           </div>
 
           {/* Quick Add */}
-          <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
             <button
               onClick={handleAddToCart}
               className="bg-white/90 backdrop-blur-sm text-terracotta-500 p-2 rounded-full shadow-warm hover:bg-terracotta-500 hover:text-white transition-colors"
@@ -57,19 +68,19 @@ export default function ProductCard({ product, index = 0 }) {
         {/* Content */}
         <div className="p-4">
           <p className="text-xs text-stone-500 uppercase tracking-wider mb-1">
-            {product.category.name}
+            {product?.category?.name || 'Bankura Terracotta'}
           </p>
           <h3 className="font-display text-lg font-semibold text-stone-900 mb-2 line-clamp-2 group-hover:text-terracotta-500 transition-colors">
             {product.name}
           </h3>
 
           <div className="flex items-center gap-2 mb-2">
-            <Rating value={product.rating || 0} size="sm" />
+            <Rating value={product.rating || 4.8} size="sm" />
           </div>
 
           {product.artisan && (
             <p className="text-sm text-stone-600 mb-3 line-clamp-1">
-              {product.artisan.displayName} • {product.artisan.village.split(',')[1]?.trim() || product.artisan.village}
+              {product.artisan.displayName} • {product.artisan.village?.split(',')[1]?.trim() || product.artisan.village}
             </p>
           )}
 
