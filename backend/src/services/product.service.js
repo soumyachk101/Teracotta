@@ -87,9 +87,11 @@ export const productService = {
   },
 
   async getCategories() {
-    return prisma.category.findMany({
+    const categories = await prisma.category.findMany({
       where: { isActive: true },
       orderBy: { sortOrder: 'asc' },
+      include: { _count: { select: { products: true } } },
     });
+    return categories.map(({ _count, ...c }) => ({ ...c, productCount: _count.products }));
   },
 };

@@ -1,9 +1,25 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { productService } from '../../services/product.service';
+import { QUERY_KEYS } from '../../constants/queryKeys';
 import { mockCategories } from '../../data/products';
 import AnimateIn from '../shared/AnimateIn';
 
 export default function CategoryGrid() {
+  const { data } = useQuery({
+    queryKey: [QUERY_KEYS.CATEGORIES],
+    queryFn: async () => {
+      try {
+        const res = await productService.getCategories();
+        return Array.isArray(res) && res.length > 0 ? res : mockCategories;
+      } catch {
+        return mockCategories;
+      }
+    },
+  });
+
+  const categories = data || mockCategories;
 
   return (
     <section className="section">
@@ -16,7 +32,7 @@ export default function CategoryGrid() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockCategories.slice(0, 6).map((category, index) => (
+          {categories.slice(0, 6).map((category, index) => (
             <AnimateIn key={category.id} variant="fade-up" delay={index * 100}>
               <Link
                 to={`/shop?category=${category.slug}`}

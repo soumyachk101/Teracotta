@@ -23,6 +23,7 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Login = lazy(() => import('./pages/auth/Login'));
 const Register = lazy(() => import('./pages/auth/Register'));
 const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
+const ResetPassword = lazy(() => import('./pages/auth/ResetPassword'));
 const Addresses = lazy(() => import('./pages/Addresses'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -79,6 +80,7 @@ function App() {
                 <Route path={ROUTES.LOGIN} element={<Login />} />
                 <Route path={ROUTES.REGISTER} element={<Register />} />
                 <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPassword />} />
+                <Route path={ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
 
                 {/* Protected routes */}
                 <Route
