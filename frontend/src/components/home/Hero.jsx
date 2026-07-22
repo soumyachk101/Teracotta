@@ -68,15 +68,6 @@ export default function Hero() {
                   className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out"
                 />
               </div>
-              {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 bg-white/90 backdrop-blur-md rounded-2xl shadow-warm p-4 border border-terracotta-100 animate-float">
-                <p className="font-display text-xl font-bold text-terracotta-500">🌾 GI Tagged Craft</p>
-                <p className="text-xs text-stone-600 font-medium">Bishnupur & Panchmura</p>
-              </div>
-              <div className="absolute -bottom-4 -left-4 bg-white/90 backdrop-blur-md rounded-2xl shadow-warm p-4 border border-terracotta-100 animate-float" style={{ animationDelay: '1s' }}>
-                <p className="font-display text-lg font-semibold text-stone-900">✨ 100% Hand-Fired</p>
-                <p className="text-xs text-stone-600 font-medium">Direct from Master Artisans</p>
-              </div>
             </div>
           </div>
         </div>
